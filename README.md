@@ -2,7 +2,7 @@
 
 A simple particle-tracking program for use with processed .fos-part particle files
 
-This is a fork of a lightweight utility, fostrack, by @occeltic for assembling trajectories from files with coordinates extracted from videos of moving objects. It is updated to work in Python3, and to output additional movement statistics.
+This is a fork of a lightweight utility, fostrack, by @occeltic for assembling trajectories from files with coordinates extracted from videos of moving objects. `fostrack3` is updated to work in Python3, and to output additional movement statistics.
 
 .fos-part particle files are comma-delimited text files generated from the fosica video processing software available from Wallingford Imaging Systems. They contain information on the size, shape, and location of particles detected in each frame of a video.
 
@@ -15,7 +15,7 @@ An example .fos-part file is included in your download so you can try out some b
 
 There is also an example .mp4 which was produced from this .fos-part file using the command:
 
-python3 fostrack.py process example.fos-part -r 10 -s 3 -l 10 --fps-in 5.3 --fps-out 15 --width 1296 --height 972 -m ./ -t ./ [--interactive False] [--stats 10] [ | cat > BLAH.txt]
+`python3 fostrack3.py process example.fos-part -r 10 -s 3 -l 10 --fps-in 5.3 --fps-out 15 --width 1296 --height 972 -m ./ -t ./ [--interactive False] [--stats 10] [ | cat > BLAH.txt]`
 
 where optional arguments are:
 
@@ -43,7 +43,7 @@ The "|" means the output of the first command will be used as input for the seco
 
 The code supports batch processing by submitting a set of names in the command line. For example, to process all the fos-part files in the directory MyDir, use
 
-python3 fostrack.py $(ls MyDir/.fos-part) -r 10 -s 3 -l 10 --fps-in 5.3 --fps-out 15 --width 1296 --height 972 -m ./ -t ./ [--interactive False] [--stats 10] [ | cat > BLAH.txt]
+`python3 fostrack3.py $(ls MyDir/.fos-part) -r 10 -s 3 -l 10 --fps-in 5.3 --fps-out 15 --width 1296 --height 972 -m ./ -t ./ [--interactive False] [--stats 10] [ | cat > BLAH.txt]`
 
 ## Output path file
 The code produces a csv-format file with the suffix "fos-trk" that summarizes the paths found by the tracking analysis. This file can be reloaded without rerunning the analysis.
