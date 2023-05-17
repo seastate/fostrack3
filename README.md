@@ -1,4 +1,7 @@
 # fostrack
+
+This is a fork of a lightweight utility, fostrack, by @occeltic for assembling trajectories from files with coordinates extracted from videos of moving objects. It is updated to work in Python3, and to output a few additional movement statistics.
+
 A simple particle-tracking program for use with processed .fos-part particle files
 
 .fos-part particle files are comma-delimited text files generated from the fosica video processing software available from Wallingford Imaging Systems. They contain information on the size, shape, and location of particles detected in each frame of a video.
