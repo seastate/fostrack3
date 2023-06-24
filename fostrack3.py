@@ -389,14 +389,17 @@ class Tracker(object):
         #now read in each line and make a particle
         currentFrame = None
         for line in f:
+            print(line)
             words = line.split()
+            print(words)
             #parse the different arguments
             frameNo = int(words[0])
             time = float(words[1])
             cameraNo = int(words[2])
             x = float(words[3])
             y = float(words[4])
-            area = int(words[5])
+            area = float(words[5])
+            #area = int(words[5])
             particleNo = int(words[6])
             boundWidth = int(words[7])
             boundHeight = int(words[8])
