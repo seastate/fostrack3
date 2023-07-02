@@ -48,7 +48,8 @@ class Particle(object):
     """
     A class for representing particles from a fos-vid file
     """
-    def __init__(self, frameNo, time, cameraNo, x, y, area, partNo, boundWidth, boundHeight, minDim, maxDim, minDimAngle, maxDimAngle, max2min, length, lengthAngle, width, widthAngle, length2width):
+    def __init__(self, frameNo, time, cameraNo, x, y, area, partNo, boundWidth, boundHeight, minDim, maxDim,
+                 minDimAngle, maxDimAngle, max2min, length, lengthAngle, width, widthAngle, length2width):
         self.frameNo = frameNo
         self.time = time
         self.cameraNo = cameraNo
@@ -549,8 +550,10 @@ class Tracker(object):
                 numParts.append(0)
         return numParts                
 
-    def countPaths(self, frameNos, minParticleLength = 0.0, maxParticleLength = float("inf"), minPathLength = 1, maxPathLength = float("inf")):
-        """return a list of the number of paths spanning each frameNo in frameNos with particle length between min and max, and path length between min and max"""
+    def countPaths(self, frameNos, minParticleLength = 0.0, maxParticleLength = float("inf"),
+                   minPathLength = 1, maxPathLength = float("inf")):
+        """return a list of the number of paths spanning each frameNo in frameNos with particle length 
+           between min and max, and path length between min and max"""
         numPaths = []
         for frameNo in frameNos:
             paths = self.getFramePaths(frameNo)
@@ -563,7 +566,8 @@ class Tracker(object):
             numPaths.append(numMatches)
         return numPaths
 
-    def summaryStats(self, frameNoInterval, minParticleLength = 0.0, maxParticleLength = float("inf"), minPathLength = 1, maxPathLength = float("inf")):
+    def summaryStats(self, frameNoInterval, minParticleLength = 0.0, maxParticleLength = float("inf"),
+                     minPathLength = 1, maxPathLength = float("inf")):
         """calculate summary statistics across the current set of paths, sampling at frameNoInterval,
         with particle length between min and max, and path length between min and max"""
         # Get average number of particles and paths across all frames
