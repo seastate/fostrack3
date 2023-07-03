@@ -946,8 +946,8 @@ def processFosPart(parsedArgs, parser):
     print("--------------------------")
     print("Files to be analyzed:")
     for path in filelist:
-        file = os.path.split(path)[1]
-        print(file)
+        pfile = os.path.split(path)[1]
+        print(pfile)
     print("--------------------------")
     if interactive == True:
         time.sleep(1.5) #introduce a small delay so the user can read text
@@ -995,12 +995,12 @@ def processFosPart(parsedArgs, parser):
     if interactive == True:
         display = inputYN("Would you like to display preview videos as we go? (y/n, faster if n):")
     for path in filelist:
-        file = os.path.split(path)[1]
-        prefix = file.strip(".fos-part")
+        pfile = os.path.split(path)[1]
+        prefix = pfile.strip(".fos-part")
         tracker = Tracker()
-        print("Loading %s..." % file)
+        print("Loading %s..." % pfile)
         tracker.loadVideo(path)
-        print("Stitching %s..." % file)
+        print("Stitching %s..." % pfile)
         tracker.simpleStitchForward(radius, minPathLength = minTrackLength, skipFrames = skipFrames)
         animator = Animator()
         if display == True:
@@ -1014,7 +1014,7 @@ def processFosPart(parsedArgs, parser):
             print("Saving movie to %s..." % savePath)
             animator.saveVideo(tracker, prefix, fpsIn, fpsOut, savePath, width = width, height = height, startFrame = startFrame, endFrame = endFrame, bitrate = bitRate, invertX = invertX, invertY = invertY)
         # If frame interval was passed as an argument, calculate statistics
-        tracker.filename=file
+        tracker.filename=pfile
         if stats>0:
             tracker.summaryStats(stats)
         
@@ -1052,8 +1052,8 @@ def playFosTrk(parsedArgs, parser):
     print("--------------------------")
     print("Files to be displayed:")
     for path in filelist:
-        file = os.path.split(path)[1]
-        print(file)
+        pfile = os.path.split(path)[1]
+        print(pfile)
     print("--------------------------")
     if interactive == True:
         time.sleep(1.5) #introduce a small delay so the user can read text
@@ -1090,10 +1090,10 @@ def playFosTrk(parsedArgs, parser):
     if interactive == True:
         display = inputYN("Would you like to display preview videos as we go? (y/n, faster if n):")
     for path in filelist:
-        file = os.path.split(path)[1]
-        prefix = file.strip(".fos-trk")
+        pfile = os.path.split(path)[1]
+        prefix = pfile.strip(".fos-trk")
         tracker = Tracker()
-        print("Loading %s..." % file)
+        print("Loading %s..." % pfile)
         tracker.loadFromFile(path)
         animator = Animator()
         if display == True:
@@ -1155,8 +1155,8 @@ def processFosTrk(parsedArgs, parser):
     print("--------------------------")
     print("Files to be re-analyzed:")
     for path in filelist:
-        file = os.path.split(path)[1]
-        print(file)
+        pfile = os.path.split(path)[1]
+        print(pfile)
     print("--------------------------")
     if interactive == True:
         time.sleep(1.5) #introduce a small delay so the user can read text
@@ -1204,12 +1204,12 @@ def processFosTrk(parsedArgs, parser):
     if interactive == True:
         display = inputYN("Would you like to display preview videos as we go? (y/n, faster if n):")
     for path in filelist:
-        file = os.path.split(path)[1]
-        prefix = file.strip(".fos-trk")
+        pfile = os.path.split(path)[1]
+        prefix = pfile.strip(".fos-trk")
         tracker = Tracker()
-        print("Loading %s..." % file)
+        print("Loading %s..." % pfile)
         tracker.loadFromFile(path)
-        print("Stitching %s..." % file)
+        print("Stitching %s..." % pfile)
         tracker.simpleStitchForward(radius, minPathLength = minTrackLength, skipFrames = skipFrames)
         animator = Animator()
         if display == True:
