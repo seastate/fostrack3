@@ -134,6 +134,11 @@ class Path(object):
         self.length = 0
         self.particleList = []
         self.frameNoList = []
+
+        self.timeList = []
+        self.xList = []
+        self.yList = []
+        
     
     def addParticle(self, particle):
         """
@@ -567,9 +572,15 @@ class Tracker(object):
         return numPaths
 
     def summaryStats(self, frameNoInterval, minParticleLength = 0.0, maxParticleLength = float("inf"),
-                     minPathLength = 1, maxPathLength = float("inf")):
+                     minPathLength = 1, maxPathLength = float("inf"),statFilename=None):
         """calculate summary statistics across the current set of paths, sampling at frameNoInterval,
         with particle length between min and max, and path length between min and max"""
+        # Create a file for path data
+        if statFilename is not None:
+            self.statFilename = statFilename
+        else:
+            self.statFilename = self.filename.replace('fos-trk','path')
+        sf = open(self.statFilename,'w')
         # Get average number of particles and paths across all frames
         frame_sample_list=list(range(self.frameNos[0],self.frameNos[-1],frameNoInterval))
         no_samples=len(frame_sample_list)
@@ -580,12 +591,23 @@ class Tracker(object):
         speeds=[]  # list of observed speeds
         dirs=[]    # list of observed direction vectors
         dir_corrs=[]    # list of observed directonal persistences
-        for path in self.pathList:
+        for i,path in enumerate(self.pathList):
             # test if path meets criteria
             if path.length<minPathLength or path.length> maxPathLength or \
                path.avgParticleLength()<minParticleLength or path.avgParticleLength()>maxParticleLength:
                 continue # test fails, skip path
             fs,xs,ys=path.interpPos(frameNoInterval)
+            sf.write(f'{i}\n')
+            # use this clunky syntax because f-strings seem to have a built-in line length limit
+            for frame in fs:
+                sf.write(f'{frame} ')
+            sf.write('\n')
+            for x in xs:
+                sf.write(f'{x} ')
+            sf.write('\n')
+            for y in ys:
+                sf.write(f'{y} ')
+            sf.write('\n')
             drs=[]
             for i in range(len(fs)-1):
                 # Caclulate velocity and speed, add to lists
@@ -606,14 +628,18 @@ class Tracker(object):
                     dir_corr=drs[i][0]*drs[i+1][0]+drs[i][1]*drs[i+1][1]
                     dir_corrs.append(dir_corr)
             dirs.extend(drs)
-        print('Path statistics for file: ',self.filename)
+        #print('Path statistics for file: ',self.filename)
         print('Number samples: ',no_samples)
         print('Avg. number particles: ',avg_no_parts)
         print('Avg. number paths: ',avg_no_paths)
-        print('vels: ',vels)
-        print('speeds: ',speeds)
-        print('directions: ',dirs)
-        print('direction correlations: ',dir_corrs)
+        print('vels:')
+        print(vels)
+        print('speeds:')
+        print(speeds)
+        print('directions:')
+        print(dirs)
+        print('direction correlations:')
+        print(dir_corrs)
         print('\n\n\n')
 
     def skippedFrames(self, startFrame = None, endFrame = None):
